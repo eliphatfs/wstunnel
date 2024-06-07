@@ -866,9 +866,7 @@ async fn main() {
                 },
                 cnx_pool: None,
                 tls_reloader: None,
-                dns_resolver: if let Ok(resolver) = hickory_resolver::AsyncResolver::tokio_from_system_conf() {
-                    DnsResolver::TrustDns(resolver)
-                } else {
+                dns_resolver: {
                     debug!("Fall-backing to system dns resolver");
                     DnsResolver::System
                 },
