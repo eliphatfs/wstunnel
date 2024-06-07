@@ -56,7 +56,7 @@ impl TunnelWrite for WebsocketTunnelWrite {
         // For the buffer to not be a bottleneck when the TCP window scale
         // For udp, the buffer will never grows.
         buf.clear();
-        if buf.capacity() == read_len {
+        if buf.capacity() == read_len && buf.capacity() < 1048576 {
             let new_size = buf.capacity() + (buf.capacity() / 4); // grow buffer by 1.25 %
             buf.reserve(new_size);
             trace!(
